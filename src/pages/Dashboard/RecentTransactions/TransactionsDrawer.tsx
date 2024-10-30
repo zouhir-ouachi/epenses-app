@@ -1,5 +1,5 @@
 import TransactionForm from "./TransactionForm";
-import { Button } from "./ui/button";
+import { Button } from "../../../components/ui/button";
 import {
   Drawer,
   DrawerContent,
@@ -7,8 +7,13 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "./ui/drawer";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+} from "../../../components/ui/drawer";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../../../components/ui/tabs";
 
 export default function TransactionsDrawer() {
   return (
@@ -17,7 +22,7 @@ export default function TransactionsDrawer() {
         <Button variant="outline">Open Drawer</Button>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="mx-auto w-full h-96 max-w-sm">
+        <div className="mx-auto w-full h-100 max-w-sm pb-6">
           <DrawerHeader>
             <DrawerTitle>Add your recent transaction</DrawerTitle>
             <DrawerDescription>
@@ -27,16 +32,16 @@ export default function TransactionsDrawer() {
           </DrawerHeader>
           <div className="p-4 pb-0">
             <div className="flex items-center">
-              <Tabs defaultValue="account" className="grid w-full grid-col ">
+              <Tabs defaultValue="expenses" className="grid w-full grid-col ">
                 <TabsList className="grid w-full grid-cols-2 mb-6">
-                  <TabsTrigger value="account">Account</TabsTrigger>
-                  <TabsTrigger value="password">Password</TabsTrigger>
+                  <TabsTrigger value="expenses">Expenses</TabsTrigger>
+                  <TabsTrigger value="incom">Incom</TabsTrigger>
                 </TabsList>
-                <TabsContent value="account">
-                  <TransactionForm />
+                <TabsContent value="expenses">
+                  <TransactionForm transactionType="expenses" />
                 </TabsContent>
-                <TabsContent value="password">
-                  Change your password here.
+                <TabsContent value="incom">
+                  <TransactionForm transactionType="incom" />
                 </TabsContent>
               </Tabs>
             </div>
