@@ -1,34 +1,21 @@
-import { useGlobalContext } from "@/utils/hooks";
+import { monthNames } from "@/data";
+import { Transaction } from "@/types/types";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
-export default function Chart({ currentYear }: any) {
-  const {
-    state: { transactions },
-  } = useGlobalContext();
+type ChartProps = {
+  transactions: Transaction[];
+  currentYear: string;
+};
 
-  function calculateMonthlyExpenses(transactions: any) {
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
+export default function Chart({ currentYear, transactions }: ChartProps) {
+  function calculateMonthlyExpenses(transactions: Transaction[]) {
     const monthlyTotals = monthNames.map((name) => ({
       name,
       total: 0,
     }));
 
     const expenses = transactions.filter(
-      (t) =>
+      (t: Transaction) =>
         t.type === "Expense" &&
         new Date(t.date_time).getFullYear().toString() === currentYear
     );

@@ -25,3 +25,8 @@ export type PaginationControlsProps = {
   totalPages: number;
   onPageChange: (page: number) => void;
 };
+
+export interface SelectOptions {
+  label: string;
+  value: string;
+}
