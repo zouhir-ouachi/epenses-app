@@ -1,18 +1,29 @@
-import { StrictMode } from "react";
+import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { ClerkProvider, ClerkLoading, ClerkLoaded } from "@clerk/clerk-react";
+import { Provider } from "react-redux";
+import { store } from "./store/index.ts";
+import Loader from "./components/Loader.tsx";
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key");
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Auth0Provider
-      domain={import.meta.env.VITE_AUTH0_DOMAIN}
-      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
-      authorizationParams={{
-        redirect_uri: window.location.origin,
-      }}
-    >
-      <App />
-    </Auth0Provider>
+    <Suspense fallback={<Loader />}>
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+        <Provider store={store}>
+          <ClerkLoading>
+            <Loader />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <App />
+          </ClerkLoaded>
+        </Provider>
+      </ClerkProvider>
+    </Suspense>
   </StrictMode>
 );

@@ -59,9 +59,9 @@
 }
 @layer base {
   * {
-    @apply border-border;
+    /* @apply border-border; */
   }
   body {
-    @apply bg-background text-foreground m-3 border-2 rounded-lg;
+    /* @apply bg-background text-foreground m-3 border-2 rounded-lg; */
   }
 }

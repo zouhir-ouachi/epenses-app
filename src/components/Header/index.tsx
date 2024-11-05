@@ -1,5 +1,5 @@
+import { UserButton } from "@clerk/clerk-react";
 import MainNav from "./MainNav";
-import UserNav from "./UserNav";
 
 const Header = () => {
   return (
@@ -7,7 +7,7 @@ const Header = () => {
       <div>EXPEDIA</div>
       <div className="flex items-center justify-between w-full ml-6">
         <MainNav />
-        <UserNav />
+        <UserButton />
       </div>
     </div>
   );
